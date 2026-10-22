@@ -39,3 +39,17 @@ index=main source="/home/city6292/auth.log" "Failed password"
 | rex "Failed password for (?<user>\S+) from (?<src_ip>\S+)"
 | stats count by src_ip, user
 | where count > 3
+
+Findings
+Source IP	Target User	Failed Attempts
+192.168.56.101	msfadmin	12
+The detection successfully identified 12 failed SSH login attempts from the attacker machine (192.168.56.101) against the msfadmin account, occurring within a short time window.
+
+https://./screenshot/detection-result.png
+
+Troubleshooting & Lessons Learned
+Legacy SSH Compatibility: Metasploitable2 only supports deprecated algorithms (diffie-hellman-group1-sha1, ssh-rsa). Modern Kali rejects these. I had to explicitly force the older algorithms in my SSH commands to simulate the attack.
+
+No APT Sources: Kali was unable to install sshpass initially because the isolated VM had no internet access or APT sources configured. I had to temporarily switch the network adapter to NAT, update the packages, and switch back to Host-Only to maintain isolation.
+
+https://./screenshot/apt-error.png
