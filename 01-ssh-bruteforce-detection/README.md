@@ -18,8 +18,8 @@ Simulate an SSH brute-force attack against a vulnerable target and detect the at
 ### 1. Lab Setup & Isolation Verification
 Built an isolated Host-Only network in VirtualBox with Kali Linux (attacker) and Metasploitable2 (victim). Verified network isolation by confirming Kali had the correct IP and could not reach the internet.
 
-![Network Isolation Check](./screenshots/network-isolation.png)
-![Kali IP Configuration](./screenshots/kali-ip.png)
+![Network Isolation Check](./screenshot/network-isolation.png)
+![Kali IP Configuration](./screenshot/kali-ip.png)
 
 ### 2. Attack Simulation
 Created a brute-force script from Kali to attempt multiple passwords against `msfadmin@192.168.56.102`. 
@@ -29,7 +29,7 @@ Created a brute-force script from Kali to attempt multiple passwords against `ms
 ### 3. Log Ingestion
 Transferred `/var/log/auth.log` from Metasploitable2 to Kali. Uploaded to Splunk via **Settings → Data Inputs → Files & Directories**. Splunk successfully parsed the logs using the `linux_secure` source type.
 
-![Splunk Ingestion](./screenshots/splunk-ingestion.png)
+![Splunk Ingestion](./screenshot/splunk-ingestion.png)
 
 ### 4. Detection Query
 Ran the following SPL search in Splunk to identify the brute-force pattern:
